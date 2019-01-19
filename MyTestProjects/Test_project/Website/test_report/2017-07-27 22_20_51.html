@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>测试报告</title>
+    <meta name="generator" content="BSTestRunner 0.8.4"/>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <style type="text/css" media="screen">
+
+        /* -- css div popup ------------------------------------------------------------------------ */
+        .popup_window {
+            display: none;
+            position: relative;
+            left: 0px;
+            top: 0px;
+            /*border: solid #627173 1px; */
+            padding: 10px;
+            background-color: #99CCFF;
+            font-family: "Lucida Console", "Courier New", Courier, monospace;
+            text-align: left;
+            font-size: 10pt;
+            width: 500px;
+        }
+
+        /* -- report ------------------------------------------------------------------------ */
+
+        #show_detail_line .label {
+            font-size: 85%;
+            cursor: pointer;
+        }
+
+        #show_detail_line {
+            margin: 2em auto 1em auto;
+        }
+
+        #total_row {
+            font-weight: bold;
+        }
+
+        .hiddenRow {
+            display: none;
+        }
+
+        .testcase {
+            margin-left: 2em;
+        }
+
+    </style>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0, 2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0, 2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i + 1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_' + tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id) {
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block') {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g, '&amp;');
+    s = s.replace(/</g, '&lt;');
+    s = s.replace(/>/g, '&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class="container">
+    <div class='heading'>
+        <h1>测试报告</h1>
+        <p><strong>开始时间:</strong> 2017-07-27 22:20:51</p>
+        <p><strong>运行时长:</strong> 0:00:04.236890</p>
+        <p><strong>状态:</strong> <span class="text text-warning">Error <strong>1</strong></span></p>
+
+        <p class='description'>登陆模块</p>
+    </div>
+
+
+    <p id='show_detail_line'>
+        <span class="label label-primary" onclick="showCase(0)">总结</span>
+        <span class="label label-danger" onclick="showCase(1)">失败</span>
+        <span class="label label-default" onclick="showCase(2)">全部</span>
+    </p>
+    <table id='result_table' class="table">
+        <thead>
+        <tr id='header_row'>
+            <th>测试套件/测试用例
+            </td>
+            <th>总数_Count
+            </td>
+            <th>通过_Pass
+            </td>
+            <th>失败_Fail
+            </td>
+            <th>错误_Error
+            </td>
+            <th>查看_View
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class='text text-warning'>
+            <td>test_login.LoginTest</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td><a class="btn btn-xs btn-primary" href="javascript:showClassDetail('c1',1)">详情</a></td>
+        </tr>
+
+        <tr id='ft1.1' class='text text-success'>
+            <td class='text text-warning'>
+                <div class='testcase'>test_login1_normal: 1.正确的用户名与密码</div>
+            </td>
+            <td colspan='5' align='center'>
+
+                <!--css div popup start-->
+                <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();'
+                   href="javascript:showTestDetail('div_ft1.1')">
+                    error</a>
+
+                <div id='div_ft1.1' class="popup_window">
+                    <div style='text-align: right;cursor:pointer'>
+                        <a onfocus='this.blur();'
+                           onclick="document.getElementById('div_ft1.1').style.display = 'none' ">
+                            [x]</a>
+                    </div>
+                    <pre>
+        
+ft1.1: b''Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Test_project\Website\test_case\model\myunit.py", line 12, in setUp
+    print('测试开始')
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python35\lib\BSTestRunner.py", line 131, in write
+    self.fp.write(to_unicode(s))
+TypeError: a bytes-like object is required, not 'str'
+
+
+        </pre>
+                </div>
+                <!--css div popup end-->
+
+            </td>
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <tr id='total_row'>
+            <td>总计</td>
+            <td>1</td>
+            <td class="text text-success">0</td>
+            <td class="text text-danger">0</td>
+            <td class="text text-warning">1</td>
+            <td>&nbsp;</td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div id='ending'>&nbsp;</div>
+</div>
+
+</body>
+</html>
